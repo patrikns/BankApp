@@ -1,0 +1,17 @@
+﻿@model Uppgift2BankApp.ViewModels.AdminIndexViewModel
+
+<li >
+    <a asp-area="" asp-controller="Admin" asp-action="CreateUser">New</a>
+</li>
+<li>
+    <a asp-area="" asp-controller="Admin" asp-action="EditUser">Edit</a>
+</li>
+<hr />
+@foreach (var a in Model.Accounts)
+{
+    <ul>
+        <li>
+            @a.Balance
+        </li>
+    </ul>
+}

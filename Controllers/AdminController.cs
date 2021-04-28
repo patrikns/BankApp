@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Uppgift2BankApp.Models;
@@ -10,16 +11,17 @@ namespace Uppgift2BankApp.Controllers
     public class AdminController : Controller
     {
         private readonly BankAppDataContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public AdminController(BankAppDataContext dbContext)
+        public AdminController(BankAppDataContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
-            var viewModel = new AdminIndexViewModel();
-            viewModel.Accounts = _dbContext.Accounts.ToList();
+            var viewModel = new AdminIndexViewModel {Accounts = _dbContext.Accounts.ToList()};
             return View(viewModel);
         }
 

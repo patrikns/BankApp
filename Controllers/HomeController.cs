@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Uppgift2BankApp.Models;
 
 namespace Uppgift2BankApp.Controllers
@@ -12,10 +13,12 @@ namespace Uppgift2BankApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, SignInManager<IdentityUser> signInManager)
         {
             _logger = logger;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -32,6 +35,12 @@ namespace Uppgift2BankApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync().Wait();
+            return RedirectToAction("Index");
         }
     }
 }

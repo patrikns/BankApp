@@ -45,8 +45,11 @@ namespace Uppgift2BankApp.Data
                 Email = userName,
                 EmailConfirmed = true
             };
-            var result = userManager.CreateAsync(user, password).Result;
-            var r = userManager.AddToRolesAsync(user, roles).Result;
+
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
+            var unused = userManager.CreateAsync(user, password).Result;
+            var dummy = userManager.AddToRolesAsync(user, roles).Result;
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
         }
     }
 }

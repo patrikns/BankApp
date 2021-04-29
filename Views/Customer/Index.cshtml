@@ -1,0 +1,45 @@
+﻿@model Uppgift2BankApp.ViewModels.CustomerIndexViewModel
+
+@{
+    ViewData["Title"] = "Kundinfo";
+}
+
+<div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Kundinfo</h2>
+        </div>
+    </div>
+
+    <form method="get" asp-controller="Customer" asp-action="Index">
+        <div class="form-row align-items-center">
+            <div class="col-auto">
+                <input type="text" class="form-control" asp-for="Q">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Sök</button>
+            </div>
+        </div>
+    </form>
+
+    <section class="no-padding-top no-padding-bottom">
+        <div class="container-fluid">
+            <table class="table">
+                <tr>
+                    <th>Namn</th>
+                    <th>Stad</th>
+                    <th>Land</th>
+                </tr>
+                @foreach (var c in Model.Items)
+                {
+                    <tr>
+                        <td>@c.Name</td>
+                        <td>@c.City</td>
+                        <td>@c.Country</td>
+                        <td><a asp-controller="Account" asp-action="Index" asp-route-id="@c.CustomerId">Konto</a></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </section>
+</div>

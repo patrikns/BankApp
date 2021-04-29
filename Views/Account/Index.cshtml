@@ -1,0 +1,48 @@
+﻿@model Uppgift2BankApp.ViewModels.AccountIndexViewModel
+
+@{
+    ViewData["Title"] = "Kontoinfo";
+}
+<div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">@ViewData["Title"]</h2>
+        </div>
+    </div>
+
+    <section>
+        <div class="container-fluid">
+            Kontonr: @Model.AccountId
+            Saldo: @Model.Balance SEK
+            <table class="table" id="transactions">
+                <tr>
+                    <th>Datum</th>
+                    <th>Typ</th>
+                    <th>Summa</th>
+
+                </tr>
+                @foreach (var t in Model.Items)
+                {
+                    <partial name="_TrasactionRow" model="t" />
+                }
+            </table>
+            <button class="btn btn-primary" onclick="fetch20();return false;">20 till</button>
+        </div>
+    </section>
+</div>
+
+@section Scripts{
+    <script>
+        skip = 0;
+        function fetch20() {
+            skip += 20;
+            //$("#transactions").append('<li></li>');
+            $.ajax({
+                url: "/Account/GetTransactionsFrom?id=" + @Model.CustomerId + "&skip=" + skip,
+                success: function(result) {
+                    $("#transactions").append(result);
+                }
+            });
+        }
+    </script>
+}

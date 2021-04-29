@@ -193,6 +193,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Account\GetTransactionsFrom.cshtml" />
+    <None Include="Views\Account\Index.cshtml" />
+    <None Include="Views\Account\_TrasactionRow.cshtml" />
     <None Include="wwwroot\css\custom.css" />
     <None Include="wwwroot\css\font.css" />
     <None Include="wwwroot\css\style.blue.css" />

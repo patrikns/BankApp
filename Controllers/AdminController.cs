@@ -7,7 +7,6 @@ using Uppgift2BankApp.ViewModels;
 
 namespace Uppgift2BankApp.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly BankAppDataContext _dbContext;
@@ -25,15 +24,31 @@ namespace Uppgift2BankApp.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateUser()
         {
             var viewModel = new AdminCreateUserViewModel();
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult EditUser()
         {
             var viewModel = new AdminEditUserViewModel();
+            return View(viewModel);
+        }
+
+        [Authorize(Roles = "Cashier")]
+        public IActionResult CreateCustomer()
+        {
+            var viewModel = new AdminCreateCustomerViewModel();
+            return View(viewModel);
+        }
+
+        [Authorize(Roles = "Cashier")]
+        public IActionResult EditCustomer()
+        {
+            var viewModel = new AdminEditCustomerViewModel();
             return View(viewModel);
         }
     }

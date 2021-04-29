@@ -1,0 +1,10 @@
+﻿@model Uppgift2BankApp.ViewModels.AccountGetTransactionsFromViewModel
+
+@{
+    Layout = null;
+}
+
+@foreach (var t in Model.Items)
+{
+    <partial name="_TrasactionRow" model="t"/>
+}

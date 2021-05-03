@@ -725,8 +725,4 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="distribution\" />
-  </ItemGroup>
-
 </Project>

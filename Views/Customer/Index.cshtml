@@ -14,7 +14,7 @@
     <form method="get" asp-controller="Customer" asp-action="Index">
         <div class="form-row align-items-center">
             <div class="col-auto">
-                <input type="text" class="form-control" asp-for="Q">
+                <input type="text" class="form-control" asp-for="Q" placeholder="Sök på namn/stad...">
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary">Sök</button>
@@ -36,7 +36,7 @@
                         <td>@c.Name</td>
                         <td>@c.City</td>
                         <td>@c.Country</td>
-                        <td><a asp-controller="Account" asp-action="Index" asp-route-id="@c.CustomerId">Konto</a></td>
+                        <td><a asp-controller="Customer" asp-action="Info" asp-route-id="@c.CustomerId">Kundinfo</a></td>
                     </tr>
                 }
             </table>

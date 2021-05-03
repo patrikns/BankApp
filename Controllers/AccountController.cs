@@ -34,7 +34,7 @@ namespace Uppgift2BankApp.Controllers
                     Date = t.Date,
                     Type = t.Type,
                     Amount = t.Amount
-                }).ToList();
+                }).OrderByDescending(o=>o.Date).ToList();
             viewModel.CustomerId = disposition.CustomerId;
             return View(viewModel);
         }
@@ -50,7 +50,7 @@ namespace Uppgift2BankApp.Controllers
                     Date = t.Date,
                     Type = t.Type,
                     Amount = t.Amount
-                }).ToList();
+                }).OrderByDescending(o=>o.Date).ToList();
             return View(viewModel);
         }
     }

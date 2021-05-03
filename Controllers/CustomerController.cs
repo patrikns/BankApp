@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Uppgift2BankApp.Models;
 using Uppgift2BankApp.ViewModels;
@@ -8,10 +9,12 @@ namespace Uppgift2BankApp.Controllers
     public class CustomerController : Controller
     {
         private readonly BankAppDataContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public CustomerController(BankAppDataContext dbContext)
+        public CustomerController(BankAppDataContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         public IActionResult Index(string q, int id)
@@ -31,22 +34,15 @@ namespace Uppgift2BankApp.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Search(string q)
+        public IActionResult Info(int id)
         {
-            var viewModel = new CustomerSearchViewModel();
-            return View(viewModel);
-        }
-
-        public IActionResult SearchByCustomerId()
-        {
-            var viewModel = new CustomerSearchByCustomerIdViewModel();
-            return View(viewModel);
-        }
-
-        public IActionResult SearchByCustomerId(CustomerSearchByCustomerIdViewModel viewModel)
-        {
-            var customer = _dbContext.Customers.FirstOrDefault(c => c.CustomerId == viewModel.CustomerId);
-
+            var model = _dbContext.Customers.FirstOrDefault(c => c.CustomerId == id);
+            if (model == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var viewModel = _mapper.Map<CustomerInfoViewModel>(model);
+            viewModel.Name = model.Givenname + " " + model.Surname;
             return View(viewModel);
         }
     }

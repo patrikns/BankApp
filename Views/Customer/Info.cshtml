@@ -1,0 +1,69 @@
+﻿@model Uppgift2BankApp.ViewModels.CustomerInfoViewModel
+
+@{
+    ViewData["Title"] = "Kundinfo";
+}
+
+<div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Kundinfo</h2>
+        </div>
+    </div>
+
+    <section class="no-padding-top no-padding-bottom">
+        <div class="container-fluid">
+            <table class="table">
+                <tr>
+                    <th>Kundnr</th>
+                    <td>@Model.CustomerId</td>
+                </tr>
+                <tr>
+                    <th>Namn</th>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <th>Kön</th>
+                    <td>@Model.Gender</td>
+                </tr>
+                <tr>
+                    <th>Födelsedatum</th>
+                    <td>@Model.Birthday</td>
+                </tr>
+                <tr>
+                    <th>Personnr</th>
+                    <td>@Model.NationalId</td>
+                </tr>
+                <tr>
+                    <th>Tel. - landkod</th>
+                    <td>@Model.Telephonecountrycode</td>
+                </tr>
+                <tr>
+                    <th>Telnr</th>
+                    <td>@Model.Telephonenumber</td>
+                </tr>
+                <tr>
+                    <th>Epost</th>
+                    <td>@Model.Emailaddress</td>
+                </tr>
+                <tr>
+                    <th>Gata</th>
+                    <td>@Model.Streetaddress</td>
+                </tr>
+                <tr>
+                    <th>Postnr och ort</th>
+                    <td>@Model.Zipcode @Model.City</td>
+                </tr>
+                <tr>
+                    <th>Land (kod)</th>
+                    <td>@Model.Country (@Model.CountryCode)</td>
+                </tr>
+                <tr>
+                    <th>Konto</th>
+                    <th><a asp-controller="Account" asp-action="Index" asp-route-id="@Model.CustomerId">Konto</a></th>
+                </tr>
+            </table>
+        </div>
+    </section>
+</div>
+

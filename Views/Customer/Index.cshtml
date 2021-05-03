@@ -52,10 +52,9 @@
                                     <li class="page-item">
                                         @if (Model.Page > 1)
                                         {
-                                            <a class="page-link"
+                                            <a class="page-link btn btn-primary"
                                                asp-route-q="@Model.Q"
-                                               asp-route-page="@(Model.Page-1)"
-                                               class="btn btn-primary">
+                                               asp-route-page="@(Model.Page-1)">
                                                 Prev
                                             </a>}
                                     </li>
@@ -66,10 +65,11 @@
                                             if (p == 1 || p == Model.Page || p == Model.Page-1 || p == Model.Page+1 || p == Model.TotalPages)
                                             {
                                                 <li class="page-item @(Model.Page == p ? "active" : "")">
-                                                    <a class="page-link"
+                                                    <a class="page-link btn btn-primary"
                                                        asp-route-q="@Model.Q"
-                                                       asp-route-page="@p"
-                                                       class="btn btn-primary">@p</a>
+                                                       asp-route-page="@p">
+                                                        @p
+                                                    </a>
                                                 </li>
                                                 p++;
                                             }
@@ -91,10 +91,11 @@
                                         else
                                         {
                                             <li class="page-item @(Model.Page == p ? "active" : "")">
-                                                <a class="page-link"
+                                                <a class="page-link btn btn-primary"
                                                    asp-route-q="@Model.Q"
-                                                   asp-route-page="@p"
-                                                   class="btn btn-primary">@p</a>
+                                                   asp-route-page="@p">
+                                                    @p
+                                                </a>
                                             </li>
                                             p++;
                                         }
@@ -102,10 +103,9 @@
                                     <li class="page-item">
                                         @if (Model.Page < Model.TotalPages)
                                         {
-                                            <a class="page-link"
+                                            <a class="page-link btn btn-primary"
                                                asp-route-q="@Model.Q"
-                                               asp-route-page="@(Model.Page + 1)"
-                                               class="btn btn-primary">
+                                               asp-route-page="@(Model.Page + 1)">
                                                 Next
                                             </a>}
                                     </li>

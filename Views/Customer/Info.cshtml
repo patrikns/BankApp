@@ -58,9 +58,17 @@
                     <th>Land (kod)</th>
                     <td>@Model.Country (@Model.CountryCode)</td>
                 </tr>
+
                 <tr>
-                    <th>Konto</th>
-                    <th><a asp-controller="Account" asp-action="Index" asp-route-id="@Model.CustomerId">Konto</a></th>
+                    <th>Konton</th>
+                    @foreach (var a in Model.Accounts)
+                    {
+                <td><a asp-controller="Account" asp-action="Index" asp-route-id="@Model.CustomerId">@a.AccountId</a> <br/>@a.Balance SEK</td>
+                    }
+                </tr>
+                <tr>
+                    <th>Totalt saldo</th>
+                    <td>@Model.TotalBalance SEK</td>
                 </tr>
             </table>
         </div>

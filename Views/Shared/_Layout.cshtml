@@ -82,16 +82,9 @@
             <ul class="list-unstyled">
                 <li class="text-muted@(activeController == "Home" ? " active" : "")"><a asp-controller="Home" asp-action="Index"> <i class="icon-home"></i>Hem </a></li>
                 @if (User.IsInRole("Admin") || User.IsInRole("Cashier")){
-                    <li class="text-muted@(activeController == "Home" ? " active" : "")"><a asp-controller="Admin" asp-action="Index"> <i class="fa fa-bar-chart"></i>Admin</a></li>
+                    <li class="text-muted@(activeController == "Admin" ? " active" : "")"><a asp-controller="Admin" asp-action="Index"> <i class="fa fa-bar-chart"></i>Admin</a></li>
                 }
-                <li>
-                    <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Kunder</a>
-                    <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                        <li>
-                            <a asp-controller="Customer" asp-action="Index">Sök</a>
-                        </li>
-                    </ul>
-                </li>
+                <li class="text-muted@(activeController == "Customer" ? " active" : "")"><a asp-controller="Customer" asp-action="Index"> <i class="fa fa-bar-chart"></i>Kundindex</a></li>
             </ul>
             <partial name="_LoginPartial"/>
         </nav>

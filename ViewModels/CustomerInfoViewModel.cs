@@ -22,5 +22,12 @@ namespace Uppgift2BankApp.ViewModels
         public string Telephonecountrycode { get; set; }
         public string Telephonenumber { get; set; }
         public string Emailaddress { get; set; }
+        public List<Item> Accounts { get; set; }
+        public decimal TotalBalance { get; set; }
+        public class Item
+        {
+            public int AccountId { get; set; }
+            public decimal Balance { get; set; }
+        }
     }
 }

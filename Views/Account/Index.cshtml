@@ -6,19 +6,19 @@
 <div class="page-content">
     <div class="page-header">
         <div class="container-fluid">
-            <h2 class="h5 no-margin-bottom">@ViewData["Title"]</h2>
+            <h2 class="h5 no-margin-bottom"> Kontonr @Model.AccountId
+                <br/>Saldo @Model.Balance SEK
+                </h2>
         </div>
     </div>
 
     <section>
         <div class="container-fluid">
-            Kontonr: @Model.AccountId
-            Saldo: @Model.Balance SEK
             <table class="table" id="transactions">
                 <tr>
                     <th>Datum</th>
                     <th>Typ</th>
-                    <th>Summa</th>
+                    <th>Transaktion</th>
 
                 </tr>
                 @foreach (var t in Model.Items)

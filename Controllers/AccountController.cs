@@ -42,8 +42,8 @@ namespace Uppgift2BankApp.Controllers
         public IActionResult GetTransactionsFrom(int id, int skip)
         {
             var viewModel = new AccountGetTransactionsFromViewModel();
-            var d = _dbContext.Dispositions.First(d => d.CustomerId == id);
-            var model = _dbContext.Accounts.First(a => a.AccountId == d.AccountId);
+            var disposition = _dbContext.Dispositions.First(d => d.CustomerId == id);
+            var model = _dbContext.Accounts.First(a => a.AccountId == disposition.AccountId);
             viewModel.Items = _dbContext.Transactions.Where(t => t.AccountId == id).Skip(skip).Take(20)
                 .Select(t => new TransactionRowViewModel()
                 {

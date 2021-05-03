@@ -11,34 +11,109 @@
         </div>
     </div>
 
-    <form method="get" asp-controller="Customer" asp-action="Index">
-        <div class="form-row align-items-center">
-            <div class="col-auto">
-                <input type="text" class="form-control" asp-for="Q" placeholder="Sök på namn/stad...">
-            </div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary">Sök</button>
-            </div>
-        </div>
-    </form>
-
     <section class="no-padding-top no-padding-bottom">
         <div class="container-fluid">
+            <form method="get" asp-controller="Customer" asp-action="Index">
+                <div class="form-row align-items-center">
+                    <div class="col-auto">
+                        <input type="text" class="form-control" asp-for="Q" placeholder="Sök på namn/stad...">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Sök</button>
+                    </div>
+                </div>
+            </form>
+
             <table class="table">
                 <tr>
+                    <th>Kundnr</th>
+                    <th>Personnr</th>
                     <th>Namn</th>
+                    <th>Gata</th>
                     <th>Stad</th>
-                    <th>Land</th>
+                    <th></th>
                 </tr>
                 @foreach (var c in Model.Items)
                 {
                     <tr>
+                        <td>@c.CustomerId</td>
+                        <td>@c.NationalId</td>
                         <td>@c.Name</td>
+                        <td>@c.Streetaddress</td>
                         <td>@c.City</td>
-                        <td>@c.Country</td>
                         <td><a asp-controller="Customer" asp-action="Info" asp-route-id="@c.CustomerId">Kundinfo</a></td>
                     </tr>
                 }
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        @if (Model.Page > 1)
+                                        {
+                                            <a class="page-link"
+                                               asp-route-q="@Model.Q"
+                                               asp-route-page="@(Model.Page-1)"
+                                               class="btn btn-primary">
+                                                Prev
+                                            </a>}
+                                    </li>
+                                    @for (int p = 1; p <= Model.TotalPages;)
+                                    {
+                                        if (Model.TotalPages > 7)
+                                        {
+                                            if (p == 1 || p == Model.Page || p == Model.Page-1 || p == Model.Page+1 || p == Model.TotalPages)
+                                            {
+                                                <li class="page-item @(Model.Page == p ? "active" : "")">
+                                                    <a class="page-link"
+                                                       asp-route-q="@Model.Q"
+                                                       asp-route-page="@p"
+                                                       class="btn btn-primary">@p</a>
+                                                </li>
+                                                p++;
+                                            }
+                                            else if (p<Model.Page-1)
+                                            {
+                                                <li class="page-item page-link">
+                                                    ...
+                                                </li>
+                                                p = Model.Page - 1;
+                                            }
+                                            else if (p>Model.Page+1)
+                                            {
+                                                <li class="page-item page-link">
+                                                    ...
+                                                </li>
+                                                p = Model.TotalPages;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item @(Model.Page == p ? "active" : "")">
+                                                <a class="page-link"
+                                                   asp-route-q="@Model.Q"
+                                                   asp-route-page="@p"
+                                                   class="btn btn-primary">@p</a>
+                                            </li>
+                                            p++;
+                                        }
+                                    }
+                                    <li class="page-item">
+                                        @if (Model.Page < Model.TotalPages)
+                                        {
+                                            <a class="page-link"
+                                               asp-route-q="@Model.Q"
+                                               asp-route-page="@(Model.Page + 1)"
+                                               class="btn btn-primary">
+                                                Next
+                                            </a>}
+                                    </li>
+                                </ul>
+                            </nav>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </section>

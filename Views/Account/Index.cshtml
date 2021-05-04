@@ -6,14 +6,15 @@
 <div class="page-content">
     <div class="page-header">
         <div class="container-fluid">
-            <h2 class="h5 no-margin-bottom"> Kontonr @Model.AccountId
-                <br/>Saldo @Model.Balance SEK
+            <h2 class="h5 no-margin-bottom"> Kontonr: @Model.AccountId
+                <br/>Saldo: @Model.Balance SEK
                 </h2>
         </div>
     </div>
 
     <section>
         <div class="container-fluid">
+            <a asp-controller="Transaction" asp-action="New" asp-route-id="@Model.AccountId" class="btn btn-primary" role="button" aria-pressed="true">Ny transaktion</a>
             <table class="table" id="transactions">
                 <tr>
                     <th>Datum</th>
@@ -23,7 +24,7 @@
                 </tr>
                 @foreach (var t in Model.Items)
                 {
-                    <partial name="_TrasactionRow" model="t" />
+                    <partial name="_TrasactionRow" model="t"/>
                 }
             </table>
             <button class="btn btn-primary" onclick="fetch20();return false;">20 till</button>

@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Transaction\New.cshtml" />
     <Content Remove="wwwroot\css\custom.css" />
     <Content Remove="wwwroot\css\font.css" />
     <Content Remove="wwwroot\css\style.blue.css" />
@@ -196,6 +197,7 @@
     <None Include="Views\Account\GetTransactionsFrom.cshtml" />
     <None Include="Views\Account\Index.cshtml" />
     <None Include="Views\Account\_TrasactionRow.cshtml" />
+    <None Include="Views\Transaction\New.cshtml" />
     <None Include="wwwroot\css\custom.css" />
     <None Include="wwwroot\css\font.css" />
     <None Include="wwwroot\css\style.blue.css" />

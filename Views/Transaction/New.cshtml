@@ -1,0 +1,40 @@
+﻿@model Uppgift2BankApp.ViewModels.TransactionNewViewModel
+
+@{
+    ViewData["Title"] = "Ny transaktion";
+}
+
+<div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">@ViewData["Title"]</h2>
+        </div>
+    </div>
+
+    <section>
+        <div class="container-fluid">
+            <form method="post" asp-controller="Transaction" asp-action="New">
+                <div class="form-group">
+                    <label class="form-control-label" asp-for="Amount">Summa:</label>
+                    <input class="form-control" asp-for="Amount">
+                    <span asp-validation-for="Amount" class="text-danger validation-summary-errors"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" asp-for="SelectedOperation">Välj transaktion:</label>
+                    <select asp-for="SelectedOperation" asp-items="Model.OperationItems"></select>
+                    <span asp-validation-for="SelectedOperation" class="text-danger validation-summary-errors"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Genomför transaktion</button>
+            </form>
+        </div>
+    </section>
+</div>
+
+@*
+Credit                              Okänd insättning...
+Credit in Cash                      insättning cash
+Credit Card Withdrawal              uttag bankomat
+Remittance to Another Bank            du överför pengar till en annan bank 
+Withdrawal in Cash                  uttag på banken liksom = cash*@

@@ -7,6 +7,7 @@ namespace Uppgift2BankApp.ViewModels
     {
         public DateTime Date { get; set; }
         public string Type { get; set; }
+        public string Operation { get; set; }
         public decimal Amount { get; set; }
     }
 }

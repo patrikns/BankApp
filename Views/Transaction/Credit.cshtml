@@ -2,7 +2,7 @@
 @model Uppgift2BankApp.ViewModels.TransactionCreditViewModel
 
 @{
-    ViewData["Title"] = "Ny transaktion";
+    ViewData["Title"] = "Ny insättning";
 }
 
 <div class="page-content">
@@ -15,6 +15,9 @@
     <section>
         <div class="container-fluid">
             <form method="post" asp-controller="Transaction" asp-action="Credit">
+                <input type="hidden" asp-for="AccountId"/>
+                <input type="hidden" asp-for="Date"/>
+
                 <div class="form-group">
                     <label class="form-control-label" asp-for="Amount">Summa:</label>
                     <input class="form-control" asp-for="Amount">
@@ -26,43 +29,8 @@
                     <select asp-for="SelectedOperation" asp-items="Model.OperationItems"></select>
                     <span asp-validation-for="SelectedOperation" class="text-danger validation-summary-errors"></span>
                 </div>
-                
-                @if (Model.SelectedOperation == 4)
-                {
-                    <div class="form-group">
-                        <label class="form-control-label" asp-for="Bank">Ange bank:</label>
-                        <input class="form-control" asp-for="Bank">
-                        <span asp-validation-for="Bank" class="text-danger validation-summary-errors"></span>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="form-control-label" asp-for="Account">Till kontonr:</label>
-                        <input class="form-control" asp-for="Account">
-                        <span asp-validation-for="Account" class="text-danger validation-summary-errors"></span>
-                    </div>
-                }
-                else
-                {
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>
-                                Bekräftelse
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>@Model.Amount SEK</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <span>
-                        Genomför denna transaktion?
-                    </span>
-                }
-
-                <button type="submit" class="btn btn-primary">Välj</button>
+                <button type="submit" class="btn btn-primary">Bekräfta</button>
             </form>
         </div>
     </section>

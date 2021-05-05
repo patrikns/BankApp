@@ -26,7 +26,7 @@ namespace Uppgift2BankApp.Controllers
         {
             var viewModel = new TransactionCreditViewModel
             {
-                AccountId = id, Date = DateTime.Now, OperationItems = GetOperations()
+                AccountId = id, Date = DateTime.Now, OperationItems = GetCreditOperations()
             };
             return View(viewModel);
         }
@@ -36,11 +36,23 @@ namespace Uppgift2BankApp.Controllers
         {
             if (ModelState.IsValid)
             {
-               
+                var transaction = new Transaction
+                {
+                    AccountId = viewModel.AccountId,
+                    Amount = viewModel.Amount,
+                    Date = viewModel.Date,
+                    Type = "Credit",
+                    Operation = viewModel.SelectedOperation == 0 ? "Credit" : "Credit in cash"
+                };
+                _dbContext.Transactions.Add(transaction);
+
+                var account = _dbContext.Accounts.First(a => a.AccountId == transaction.AccountId);
+                account.Balance += transaction.Amount;
+                _dbContext.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
 
-            viewModel.OperationItems = GetOperations();
+            viewModel.OperationItems = GetCreditOperations();
             return View(viewModel);
         }
 
@@ -49,7 +61,7 @@ namespace Uppgift2BankApp.Controllers
         {
             var viewModel = new TransactionDebitViewModel
             {
-                AccountId = id, Date = DateTime.Now, OperationItems = GetOperations()
+                AccountId = id, Date = DateTime.Now, OperationItems = GetDebitOperations()
             };
             return View(viewModel);
         }
@@ -57,13 +69,31 @@ namespace Uppgift2BankApp.Controllers
         [HttpPost]
         public IActionResult Debit(TransactionDebitViewModel viewModel)
         {
+            var account = _dbContext.Accounts.First(a => a.AccountId == viewModel.AccountId);
+
+            if (viewModel.Amount > account.Balance)
+            {
+                ModelState.AddModelError("Amount", "Summan får inte överskrida kontots saldo");
+            }
+
             if (ModelState.IsValid)
             {
-               
+                var transaction = new Transaction
+                {
+                    AccountId = viewModel.AccountId,
+                    Amount = -viewModel.Amount,
+                    Date = viewModel.Date,
+                    Type = "Debit",
+                    Operation = viewModel.SelectedOperation == 0 ? "Credit card withdrawal" : "Withdrawal in cash"
+                };
+                _dbContext.Transactions.Add(transaction);
+
+                account.Balance += transaction.Amount;
+                _dbContext.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
 
-            viewModel.OperationItems = GetOperations();
+            viewModel.OperationItems = GetDebitOperations();
             return View(viewModel);
         }
 
@@ -72,7 +102,7 @@ namespace Uppgift2BankApp.Controllers
         {
             var viewModel = new TransactionTransferViewModel
             {
-                AccountId = id, Date = DateTime.Now, OperationItems = GetOperations()
+                AccountId = id, Date = DateTime.Now
             };
             return View(viewModel);
         }
@@ -80,25 +110,50 @@ namespace Uppgift2BankApp.Controllers
         [HttpPost]
         public IActionResult Transfer(TransactionTransferViewModel viewModel)
         {
+            var account = _dbContext.Accounts.First(a => a.AccountId == viewModel.AccountId);
+            if (viewModel.Amount > account.Balance)
+            {
+                ModelState.AddModelError("Amount", "Summan får inte överskrida kontots saldo");
+            }
+
             if (ModelState.IsValid)
             {
-               
+                var transaction = new Transaction
+                {
+                    AccountId = viewModel.AccountId,
+                    Amount = -viewModel.Amount,
+                    Date = viewModel.Date,
+                    Type = "Debit",
+                    Operation = "Remittance to another bank",
+                    Bank = viewModel.Bank,
+                    Account = viewModel.Account
+                };
+                _dbContext.Transactions.Add(transaction);
+
+                account.Balance += transaction.Amount;
+                _dbContext.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
 
-            viewModel.OperationItems = GetOperations();
             return View(viewModel);
         }
 
-        private static List<SelectListItem> GetOperations()
+        private static List<SelectListItem> GetCreditOperations()
         {
             var l = new List<SelectListItem>
             {
                 new("Credit", "0"),
                 new("Credit in cash", "1"),
-                new("Credit card withdrawal", "2"),
-                new ("Withdrawal in cash", "3"),
-                new("Remittance to another bank", "4")
+            };
+            return l;
+        }
+
+        private static List<SelectListItem> GetDebitOperations()
+        {
+            var l = new List<SelectListItem>
+            {
+                new("Credit card withdrawal", "0"),
+                new ("Withdrawal in cash", "1"),
             };
             return l;
         }

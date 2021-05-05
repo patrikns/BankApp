@@ -1,0 +1,69 @@
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model Uppgift2BankApp.ViewModels.TransactionCreditViewModel
+
+@{
+    ViewData["Title"] = "Ny transaktion";
+}
+
+<div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">@ViewData["Title"]</h2>
+        </div>
+    </div>
+
+    <section>
+        <div class="container-fluid">
+            <form method="post" asp-controller="Transaction" asp-action="Credit">
+                <div class="form-group">
+                    <label class="form-control-label" asp-for="Amount">Summa:</label>
+                    <input class="form-control" asp-for="Amount">
+                    <span asp-validation-for="Amount" class="text-danger validation-summary-errors"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" asp-for="SelectedOperation">Välj transaktion:</label>
+                    <select asp-for="SelectedOperation" asp-items="Model.OperationItems"></select>
+                    <span asp-validation-for="SelectedOperation" class="text-danger validation-summary-errors"></span>
+                </div>
+                
+                @if (Model.SelectedOperation == 4)
+                {
+                    <div class="form-group">
+                        <label class="form-control-label" asp-for="Bank">Ange bank:</label>
+                        <input class="form-control" asp-for="Bank">
+                        <span asp-validation-for="Bank" class="text-danger validation-summary-errors"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" asp-for="Account">Till kontonr:</label>
+                        <input class="form-control" asp-for="Account">
+                        <span asp-validation-for="Account" class="text-danger validation-summary-errors"></span>
+                    </div>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>
+                                Bekräftelse
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>@Model.Amount SEK</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <span>
+                        Genomför denna transaktion?
+                    </span>
+                }
+
+                <button type="submit" class="btn btn-primary">Välj</button>
+            </form>
+        </div>
+    </section>
+</div>

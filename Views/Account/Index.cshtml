@@ -14,7 +14,10 @@
 
     <section>
         <div class="container-fluid">
-            <a asp-controller="Transaction" asp-action="New" asp-route-id="@Model.AccountId" class="btn btn-primary" role="button" aria-pressed="true">Ny transaktion</a>
+            <a asp-controller="Transaction" asp-action="Credit" asp-route-id="@Model.AccountId" class="btn btn-primary" role="button" aria-pressed="true">Ny insättning</a>
+            <a asp-controller="Transaction" asp-action="Debit" asp-route-id="@Model.AccountId" class="btn btn-primary" role="button" aria-pressed="true">Nytt uttag</a>
+            <a asp-controller="Transaction" asp-action="Transfer" asp-route-id="@Model.AccountId" class="btn btn-primary" role="button" aria-pressed="true">Ny överföring</a>
+           
             <table class="table" id="transactions">
                 <tr>
                     <th>Datum</th>

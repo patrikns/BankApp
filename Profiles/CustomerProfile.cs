@@ -13,6 +13,9 @@ namespace Uppgift2BankApp.Profiles
         public CustomerProfile()
         {
             CreateMap<Customer, CustomerInfoViewModel>();
+            CreateMap<AdminCreateCustomerViewModel, Customer>();
+            CreateMap<Customer, AdminEditCustomerViewModel>();
+            CreateMap<AdminEditCustomerViewModel, Customer>();
         }
     }
 }

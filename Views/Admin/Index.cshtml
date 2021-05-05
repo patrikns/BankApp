@@ -1,17 +1,21 @@
 ﻿@model Uppgift2BankApp.ViewModels.AdminIndexViewModel
 
-<li >
-    <a asp-area="" asp-controller="Admin" asp-action="CreateUser">New</a>
-</li>
-<li>
-    <a asp-area="" asp-controller="Admin" asp-action="EditUser">Edit</a>
-</li>
-<hr />
-@foreach (var a in Model.Accounts)
-{
-    <ul>
-        <li>
-            @a.Balance
-        </li>
-    </ul>
+@{
+    ViewData["Title"] = "Admin";
 }
+
+<div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">@ViewData["Title"]</h2>
+        </div>
+    </div>
+
+    <section>
+        <div class="container-fluid">
+            <a asp-controller="Admin" asp-action="CustomerIndex" class="btn btn-primary" role="button" aria-pressed="true">Kunder</a>
+            <a asp-controller="Admin" asp-action="UserIndex" class="btn btn-primary" role="button" aria-pressed="true">Användare</a>
+
+        </div>
+    </section>
+</div>

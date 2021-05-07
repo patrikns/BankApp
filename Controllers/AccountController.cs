@@ -35,7 +35,7 @@ namespace Uppgift2BankApp.Controllers
                     Operation = t.Operation,
                     Amount = t.Amount
                 }).OrderByDescending(o=>o.Date).Take(20).ToList();
-            viewModel.CustomerId = disposition.CustomerId;
+            viewModel.CustomerId = id;
             return View(viewModel);
         }
 

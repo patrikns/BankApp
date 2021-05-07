@@ -132,7 +132,6 @@ namespace Uppgift2BankApp.Controllers
             return View(viewModel);
         }
 
-        
         private List<SelectListItem> GetRoles()
         {
             var l = new List<SelectListItem>
@@ -157,6 +156,22 @@ namespace Uppgift2BankApp.Controllers
             {
                 var customer = _mapper.Map<Customer>(viewModel);
                 _dbContext.Customers.Add(customer);
+                var account = new Account
+                {
+                    Frequency = "Monthly",
+                    Created = DateTime.Now.Date,
+                    Balance = 0
+                };
+                _dbContext.Accounts.Add(account);
+                var disposition = new Disposition
+                {
+                    Type = "Owner",
+                    AccountId = account.AccountId,
+                    Account = account,
+                    CustomerId = customer.CustomerId,
+                    Customer = customer
+                };
+                _dbContext.Dispositions.Add(disposition);
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -1,1 +1,52 @@
 ﻿@model Uppgift2BankApp.ViewModels.AdminCreateUserViewModel
+
+@{
+    ViewData["Title"] = "Ny användare";
+}
+
+<div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">@ViewData["Title"]</h2>
+        </div>
+    </div>
+
+    <section>
+        <div class="container-fluid">
+            <form method="post" asp-controller="Admin" asp-action="CreateUser">
+
+                <div class="form-group">
+                    <label class="form-control-label" asp-for="UserName">Användarnamn</label>
+                    <input class="form-control" asp-for="UserName">
+                    <span asp-validation-for="UserName" class="text-danger validation-summary-errors"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-control-label" asp-for="Password">Lösenord</label>
+                    <input class="form-control" asp-for="Password">
+                    <span asp-validation-for="Password" class="text-danger validation-summary-errors"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-control-label" asp-for="ConfirmPassword">Upprepa lösenord</label>
+                    <input class="form-control" asp-for="ConfirmPassword">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger validation-summary-errors"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" asp-for="Email">Epost</label>
+                    <input class="form-control" asp-for="Email">
+                    <span asp-validation-for="Email" class="text-danger validation-summary-errors"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" asp-for="SelectedRoleId">Roll</label>
+                    <select asp-for="SelectedRoleId" asp-items="@Model.Roles"></select>
+                    <span asp-validation-for="SelectedRoleId" class="text-danger validation-summary-errors"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Spara</button>
+            </form>
+        </div>
+    </section>
+</div>

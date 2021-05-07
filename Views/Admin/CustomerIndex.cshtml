@@ -1,7 +1,7 @@
-﻿@model Uppgift2BankApp.ViewModels.CustomerIndexViewModel
+﻿@model Uppgift2BankApp.ViewModels.AdminCustomerIndexViewModel
 
 @{
-    ViewData["Title"] = "Kundinfo";
+    ViewData["Title"] = "Kundadmin";
 }
 
 <div class="page-content">
@@ -13,7 +13,7 @@
 
     <section class="no-padding-top no-padding-bottom">
         <div class="container-fluid">
-            <form method="get" asp-controller="Customer" asp-action="Index">
+            <form method="get" asp-controller="Admin" asp-action="CustomerIndex">
                 <div class="form-row align-items-center">
                     <div class="col-auto">
                         <input type="text" class="form-control" asp-for="Q" placeholder="Sök på namn/stad...">
@@ -25,6 +25,7 @@
             </form>
 
             <table class="table">
+                <a class="btn btn-primary" asp-controller="Admin" asp-action="CreateCustomer">Ny kund</a>
                 <tr>
                     <th>Kundnr</th>
                     <th>Personnr</th>
@@ -41,7 +42,7 @@
                         <td>@c.Name</td>
                         <td>@c.Streetaddress</td>
                         <td>@c.City</td>
-                        <td><a asp-controller="Customer" asp-action="Info" asp-route-id="@c.CustomerId">Kundinfo</a></td>
+                        <td><a class="btn btn-primary" asp-controller="Admin" asp-action="EditCustomer" asp-route-id="@c.CustomerId">Redigera</a></td>
                     </tr>
                 }
                 <tfoot>
@@ -54,7 +55,7 @@
                                         {
                                             <a class="page-link btn btn-primary"
                                                asp-route-q="@Model.Q"
-                                               asp-route-page="@(Model.Page-1)">
+                                               asp-route-page="@(Model.Page - 1)">
                                                 Prev
                                             </a>}
                                     </li>
@@ -62,7 +63,7 @@
                                     {
                                         if (Model.TotalPages > 7)
                                         {
-                                            if (p == 1 || p == Model.Page || p == Model.Page-1 || p == Model.Page+1 || p == Model.TotalPages)
+                                            if (p == 1 || p == Model.Page || p == Model.Page - 1 || p == Model.Page + 1 || p == Model.TotalPages)
                                             {
                                                 <li class="page-item @(Model.Page == p ? "active" : "")">
                                                     <a class="page-link btn btn-primary"
@@ -73,14 +74,14 @@
                                                 </li>
                                                 p++;
                                             }
-                                            else if (p<Model.Page-1)
+                                            else if (p < Model.Page - 1)
                                             {
                                                 <li class="page-item page-link">
                                                     ...
                                                 </li>
                                                 p = Model.Page - 1;
                                             }
-                                            else if (p>Model.Page+1)
+                                            else if (p > Model.Page + 1)
                                             {
                                                 <li class="page-item page-link">
                                                     ...

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -32,6 +33,49 @@ namespace Uppgift2BankApp.Controllers
             return View(viewModel);
         }
 
+        public IActionResult UserIndex()
+        {
+            var viewModel = new AdminUserIndexViewModel();
+            viewModel.Items = _userDbContext.Users.Select(u => new AdminUserIndexViewModel.Item
+            {
+                Id = u.Id,
+                UserName = u.UserName,
+                Role = _userDbContext.Roles.First(r=>r.Id==(_userDbContext.UserRoles.First(r=>r.UserId==u.Id).RoleId)).Name
+            }).ToList();
+            return View(viewModel);
+
+        }
+
+        public IActionResult CustomerIndex(string q, int page = 1)
+        {
+            var viewModel = new AdminCustomerIndexViewModel();
+
+            var query =
+                _dbContext.Customers.Where(c =>q == null ||
+                                               c.City.Contains(q) || c.Givenname.Contains(q) || c.Surname.Contains(q));
+
+            var totalRowCount = query.Count();
+            int pageSize = 50;
+            int howManyRecordsToSkip = (page - 1) * pageSize;
+            var pageCount = (double) totalRowCount / pageSize;
+            viewModel.TotalPages = (int)Math.Ceiling(pageCount);
+
+            query = query.Skip(howManyRecordsToSkip).Take(pageSize);
+
+            viewModel.Items = query.Select(c => new AdminCustomerIndexViewModel.Item
+            {
+                CustomerId = c.CustomerId,
+                NationalId = c.NationalId,
+                Name = c.Givenname + " " + c.Surname,
+                Streetaddress = c.Streetaddress,
+                City = c.City
+            }).ToList();
+            viewModel.Q = q;
+            viewModel.Page = page;
+            return View(viewModel);
+
+        }
+
         [Authorize(Roles = "Admin")]
         public IActionResult CreateUser()
         {
@@ -51,6 +95,7 @@ namespace Uppgift2BankApp.Controllers
             if (ModelState.IsValid)
             {
                 var user = _mapper.Map<IdentityUser>(viewModel);
+                user.EmailConfirmed = true;
                 string[] roles = viewModel.SelectedRoleId == 0 ? new string[] {"Admin"} : new string[] {"Cashier"};
 #pragma warning disable IDE0059 // Unnecessary assignment of a value
                 var unused = _userManager.CreateAsync(user, viewModel.Password).Result;
@@ -77,6 +122,7 @@ namespace Uppgift2BankApp.Controllers
             if (ModelState.IsValid)
             {
                 var user = _mapper.Map<IdentityUser>(viewModel);
+                user.EmailConfirmed = true;
                 string[] roles = viewModel.SelectedRoleId == 0 ? new string[] {"Admin"} : new string[] {"Cashier"};
                 _userManager.UpdateAsync(user);
                 _userManager.AddToRolesAsync(user, roles);
@@ -136,20 +182,6 @@ namespace Uppgift2BankApp.Controllers
                 return RedirectToAction("Index");
             }
             return View(viewModel);
-        }
-
-        public IActionResult UserIndex()
-        {
-            var viewModel = new AdminUserIndexViewModel();
-            return View(viewModel);
-
-        }
-
-        public IActionResult CustomerIndex()
-        {
-            var viewModel = new AdminCustomerIndexViewModel();
-            return View(viewModel);
-
         }
     }
 }

@@ -1,0 +1,36 @@
+﻿@model Uppgift2BankApp.ViewModels.AdminUserIndexViewModel
+
+@{
+    ViewData["Title"] = "Användaradmin";
+}
+
+<div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">@ViewData["Title"]</h2>
+        </div>
+    </div>
+
+    <section>
+        <div class="container-fluid">
+            <table class="table">
+                <a class="btn btn-primary" asp-controller="Admin" asp-action="CreateUser">Ny användare</a>
+                <thead>
+                    <tr>
+                        <th>Användarnamn</th>
+                        <th>Roll</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var user in Model.Items)
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>@user.Role</td>
+                        <td><a class="btn btn-primary" asp-controller="Admin" asp-action="EditUser" asp-route-id="@user.Id">Redigera</a> </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </section>
+</div>

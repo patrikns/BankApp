@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Uppgift2BankApp.Models;
+using SharedLibrary.Models;
 using Uppgift2BankApp.ViewModels;
 
 namespace Uppgift2BankApp.Controllers

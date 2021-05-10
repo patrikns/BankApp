@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SharedLibrary.Models;
 using Uppgift2BankApp.Data;
-using Uppgift2BankApp.Models;
 using Uppgift2BankApp.ViewModels;
 
 namespace Uppgift2BankApp.Controllers

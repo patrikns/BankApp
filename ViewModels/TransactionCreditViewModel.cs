@@ -6,7 +6,6 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Uppgift2BankApp.Models;
 
 namespace Uppgift2BankApp.ViewModels
 {

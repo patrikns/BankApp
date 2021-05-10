@@ -12,8 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using SharedLibrary.Models;
 using Uppgift2BankApp.Data;
-using Uppgift2BankApp.Models;
 using Uppgift2BankApp.Profiles;
 
 namespace Uppgift2BankApp

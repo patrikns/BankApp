@@ -4,7 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Uppgift2BankApp.Models;
+using SharedLibrary.Models;
 using Uppgift2BankApp.ViewModels;
 
 namespace Uppgift2BankApp.Controllers

@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using SharedLibrary.Models;
+using Uppgift2BankApp.Services.TransactionService;
 using Uppgift2BankApp.ViewModels;
 
 namespace Uppgift2BankApp.Controllers
@@ -14,20 +11,19 @@ namespace Uppgift2BankApp.Controllers
     {
         private readonly BankAppDataContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly ITransactionService _transactionService;
 
-        public TransactionController(BankAppDataContext dbContext, IMapper mapper)
+        public TransactionController(BankAppDataContext dbContext, IMapper mapper, ITransactionService transactionService)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _transactionService = transactionService;
         }
 
         [HttpGet]
         public IActionResult Credit(int id)
         {
-            var viewModel = new TransactionCreditViewModel
-            {
-                AccountId = id, Date = DateTime.Now, OperationItems = GetCreditOperations()
-            };
+            var viewModel = _transactionService.Credit(id);
             return View(viewModel);
         }
 
@@ -52,17 +48,14 @@ namespace Uppgift2BankApp.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            viewModel.OperationItems = GetCreditOperations();
+            viewModel.OperationItems = _transactionService.GetCreditOperations();
             return View(viewModel);
         }
 
         [HttpGet]
         public IActionResult Debit(int id)
         {
-            var viewModel = new TransactionDebitViewModel
-            {
-                AccountId = id, Date = DateTime.Now, OperationItems = GetDebitOperations()
-            };
+            var viewModel = _transactionService.Debit(id);
             return View(viewModel);
         }
 
@@ -93,17 +86,14 @@ namespace Uppgift2BankApp.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            viewModel.OperationItems = GetDebitOperations();
+            viewModel.OperationItems = _transactionService.GetDebitOperations();
             return View(viewModel);
         }
 
         [HttpGet]
         public IActionResult Transfer(int id)
         {
-            var viewModel = new TransactionTransferViewModel
-            {
-                AccountId = id, Date = DateTime.Now
-            };
+            var viewModel = _transactionService.Transfer(id);
             return View(viewModel);
         }
 
@@ -136,26 +126,6 @@ namespace Uppgift2BankApp.Controllers
             }
 
             return View(viewModel);
-        }
-
-        private static List<SelectListItem> GetCreditOperations()
-        {
-            var l = new List<SelectListItem>
-            {
-                new("Credit", "0"),
-                new("Credit in cash", "1"),
-            };
-            return l;
-        }
-
-        private static List<SelectListItem> GetDebitOperations()
-        {
-            var l = new List<SelectListItem>
-            {
-                new("Credit card withdrawal", "0"),
-                new ("Withdrawal in cash", "1"),
-            };
-            return l;
         }
     }
 }

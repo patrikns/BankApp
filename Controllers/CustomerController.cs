@@ -4,7 +4,6 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SearchApp;
 using SharedLibrary.Models;
 using Uppgift2BankApp.ViewModels;
 

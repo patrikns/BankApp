@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using SearchApp;
 using SharedLibrary.Models;
 using Uppgift2BankApp.ViewModels;
 
@@ -13,6 +14,7 @@ namespace Uppgift2BankApp.Profiles
         public CustomerProfile()
         {
             CreateMap<Customer, CustomerInfoViewModel>();
+            CreateMap<Customer, CustomerInAzure>();
             CreateMap<AdminCreateCustomerViewModel, Customer>();
             CreateMap<Customer, AdminEditCustomerViewModel>();
             CreateMap<AdminEditCustomerViewModel, Customer>();

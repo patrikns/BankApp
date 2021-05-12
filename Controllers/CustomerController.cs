@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SearchApp;
 using SharedLibrary.Models;
 using Uppgift2BankApp.ViewModels;
 
@@ -22,6 +23,7 @@ namespace Uppgift2BankApp.Controllers
 
         public IActionResult Index(string q, int page = 1)
         {
+            
             var viewModel = new CustomerIndexViewModel();
             var query =
                 _dbContext.Customers.Where(c =>q == null ||

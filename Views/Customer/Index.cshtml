@@ -27,10 +27,82 @@
             <table class="table">
                 <tr>
                     <th>Kundnr</th>
-                    <th>Personnr</th>
-                    <th>Namn</th>
-                    <th>Gata</th>
-                    <th>Stad</th>
+                    <th>
+                        <a
+                            asp-route-q="@Model.Q"
+                            asp-route-sortField="NationalId"
+                            asp-route-sortOrder="@(Model.SortField == "NationalId" ? Model.OppositeSortOrder : "")">
+                            Personnr
+                            @if (Model.SortField == "NationalId")
+                            {
+                                if (Model.SortOrder == "asc")
+                                {
+                                    <i class="fa fa-sort-down"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-sort-up"></i>
+                                }
+                            }
+                        </a>
+                    </th>
+                    <th>
+                        <a
+                            asp-route-q="@Model.Q"
+                            asp-route-sortField="Name"
+                            asp-route-sortOrder="@(Model.SortField == "Name" ? Model.OppositeSortOrder : "")">
+                            Namn
+                            @if (Model.SortField == "Name")
+                            {
+                                if (Model.SortOrder == "asc")
+                                {
+                                    <i class="fa fa-sort-down"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-sort-up"></i>
+                                }
+                            }
+                        </a>
+                    </th>
+                    <th>
+                        <a
+                            asp-route-q="@Model.Q"
+                            asp-route-sortField="Streetaddress"
+                            asp-route-sortOrder="@(Model.SortField == "Streetaddress" ? Model.OppositeSortOrder : "")">
+                            Gata
+                            @if (Model.SortField == "Streetaddress")
+                            {
+                                if (Model.SortOrder == "asc")
+                                {
+                                    <i class="fa fa-sort-down"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-sort-up"></i>
+                                }
+                            }
+                        </a>
+                    </th>
+                    <th>
+                        <a
+                            asp-route-q="@Model.Q"
+                            asp-route-sortField="City"
+                            asp-route-sortOrder="@(Model.SortField == "City" ? Model.OppositeSortOrder : "")">
+                            Stad
+                            @if (Model.SortField == "City")
+                            {
+                                if (Model.SortOrder == "asc")
+                                {
+                                    <i class="fa fa-sort-down"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-sort-up"></i>
+                                }
+                            }
+                        </a>
+                    </th>
                     <th></th>
                 </tr>
                 @foreach (var c in Model.Items)
@@ -54,6 +126,8 @@
                                         {
                                             <a class="page-link btn btn-primary"
                                                asp-route-q="@Model.Q"
+                                               asp-route-sortField="@Model.SortField"
+                                               asp-route-sortOrder="@Model.SortOrder"
                                                asp-route-page="@(Model.Page-1)">
                                                 Prev
                                             </a>}
@@ -67,6 +141,8 @@
                                                 <li class="page-item @(Model.Page == p ? "active" : "")">
                                                     <a class="page-link btn btn-primary"
                                                        asp-route-q="@Model.Q"
+                                                       asp-route-sortField="@Model.SortField"
+                                                       asp-route-sortOrder="@Model.SortOrder"
                                                        asp-route-page="@p">
                                                         @p
                                                     </a>
@@ -93,6 +169,8 @@
                                             <li class="page-item @(Model.Page == p ? "active" : "")">
                                                 <a class="page-link btn btn-primary"
                                                    asp-route-q="@Model.Q"
+                                                   asp-route-sortField="@Model.SortField"
+                                                   asp-route-sortOrder="@Model.SortOrder"
                                                    asp-route-page="@p">
                                                     @p
                                                 </a>
@@ -105,6 +183,8 @@
                                         {
                                             <a class="page-link btn btn-primary"
                                                asp-route-q="@Model.Q"
+                                               asp-route-sortField="@Model.SortField"
+                                               asp-route-sortOrder="@Model.SortOrder"
                                                asp-route-page="@(Model.Page + 1)">
                                                 Next
                                             </a>}

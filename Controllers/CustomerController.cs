@@ -25,7 +25,7 @@ namespace Uppgift2BankApp.Controllers
             _searcher = searcher;
         }
 
-        public IActionResult Index(string q, int page = 1)
+        public IActionResult Index(string q, string sortField, string sortOrder, int page = 1)
         {
             var viewModel = new CustomerIndexViewModel();
             var searchClient = _searcher.GetSearchClient();
@@ -33,12 +33,17 @@ namespace Uppgift2BankApp.Controllers
             int pageSize = 50;
             int skip = (page - 1) * pageSize;
 
+            if (string.IsNullOrEmpty(sortField)) sortField = "Name";
+            if (string.IsNullOrEmpty(sortOrder)) sortOrder = "asc";
+
             var searchOptions = new SearchOptions
             {
+                OrderBy = {sortField + " " + sortOrder},
                 Skip = skip,
                 Size = pageSize,
                 IncludeTotalCount = true
             };
+     
             var searchResult = searchClient.Search<CustomerInAzure>(q, searchOptions);
             var ids = searchResult.Value.GetResults().Select(result => result.Document.Id);
 
@@ -58,6 +63,9 @@ namespace Uppgift2BankApp.Controllers
                 City = c.City
             }).ToList();
             viewModel.Q = q;
+            viewModel.SortField = sortField;
+            viewModel.SortOrder = sortOrder;
+            viewModel.OppositeSortOrder = sortOrder == "asc" ? "desc" : "asc";
             viewModel.Page = page;
             return View(viewModel);
         }

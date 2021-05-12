@@ -5,10 +5,12 @@ namespace Uppgift2BankApp.ViewModels
     public class CustomerIndexViewModel
     {
         public string Q { get; set; }
+        public string SortField { get; set; }
+        public string SortOrder { get; set; }
+        public string OppositeSortOrder { get; set; }
         public int Page { get; set; }
         public int TotalPages { get; set; }
         public List<Item> Items { get; set; }
-
         public class Item
         {
             public int CustomerId { get; set; }

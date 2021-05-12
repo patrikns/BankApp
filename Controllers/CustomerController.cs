@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Azure.Search.Documents;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SearchApp;
 using SharedLibrary.Models;
+using Uppgift2BankApp.Services.SearchService;
 using Uppgift2BankApp.ViewModels;
 
 namespace Uppgift2BankApp.Controllers
@@ -13,28 +16,38 @@ namespace Uppgift2BankApp.Controllers
     {
         private readonly BankAppDataContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly IAzureSearch _searcher;
 
-        public CustomerController(BankAppDataContext dbContext, IMapper mapper)
+        public CustomerController(BankAppDataContext dbContext, IMapper mapper, IAzureSearch searcher)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _searcher = searcher;
         }
 
         public IActionResult Index(string q, int page = 1)
         {
-            
             var viewModel = new CustomerIndexViewModel();
-            var query =
-                _dbContext.Customers.Where(c =>q == null ||
-                    c.City.Contains(q) || c.Givenname.Contains(q) || c.Surname.Contains(q));
+            var searchClient = _searcher.GetSearchClient();
 
-            var totalRowCount = query.Count();
             int pageSize = 50;
-            int howManyRecordsToSkip = (page - 1) * pageSize;
+            int skip = (page - 1) * pageSize;
+
+            var searchOptions = new SearchOptions
+            {
+                Skip = skip,
+                Size = pageSize,
+                IncludeTotalCount = true
+            };
+            var searchResult = searchClient.Search<CustomerInAzure>(q, searchOptions);
+            var ids = searchResult.Value.GetResults().Select(result => result.Document.Id);
+
+            var query =
+                _dbContext.Customers.Where(c => ids.Contains(c.CustomerId.ToString()));
+
+            var totalRowCount = searchResult.Value.TotalCount;
             var pageCount = (double) totalRowCount / pageSize;
             viewModel.TotalPages = (int)Math.Ceiling(pageCount);
-
-            query = query.Skip(howManyRecordsToSkip).Take(pageSize);
 
             viewModel.Items = query.Select(c => new CustomerIndexViewModel.Item
             {

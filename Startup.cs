@@ -11,7 +11,7 @@ using Uppgift2BankApp.Services.AccountService;
 using Uppgift2BankApp.Services.CustomerService;
 using Uppgift2BankApp.Services.SearchService;
 using Uppgift2BankApp.Services.StatisticsService;
-using Uppgift2BankApp.Services.TransactionService;
+using Uppgift2BankApp.Services.Transaction;
 
 namespace Uppgift2BankApp
 {
@@ -27,10 +27,12 @@ namespace Uppgift2BankApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddTransient<IStatisticsService, StatisticsService>();
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<IAzureSearch, AzureSearch>();
+            services.AddTransient<ITransactionRepos, TransactionRepos>();
             services.AddTransient<ITransactionService, TransactionService>();
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<ApplicationDbContext>(options =>

@@ -12,7 +12,8 @@
     </div>
     <section class="no-padding-top no-padding-bottom">
         <div class="container-fluid">
-            
+            @foreach (var item in Model.Items)
+            {
                 <div>
                     <div class="statistic-block block">
                         <div class="progress-details d-flex align-items-end justify-content-between">
@@ -20,38 +21,15 @@
                                 <div class="icon">
                                     <i class="icon-user-1"></i>
                                 </div>
-                                <strong>Antal kunder</strong>
+                                <strong><a asp-controller="Home" asp-action="TopTen" asp-route-countryCode="@item.CountryCode">@item.Country</a></strong>
                             </div>
-                            <div class="number dashtext-1">@Model.CustomerCount</div>
+                            <div class="number dashtext-4">Antal kunder: @item.CustomerCount</div>
+                            <div class="number dashtext-1">Antal konton: @item.AccountCount</div>
+                            <div class="number dashtext-2">Totalt saldo: @item.TotalBalance SEK</div>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <div class="statistic-block block">
-                        <div class="progress-details d-flex align-items-end justify-content-between">
-                            <div class="title">
-                                <div class="icon">
-                                    <i class="icon-contract"></i>
-                                </div>
-                                <strong>Antal konton</strong>
-                            </div>
-                            <div class="number dashtext-2">@Model.AccountCount</div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="statistic-block block">
-                        <div class="progress-details d-flex align-items-end justify-content-between">
-                            <div class="title">
-                                <div class="icon">
-                                    <i class="icon-paper-and-pencil"></i>
-                                </div>
-                                <strong>Totalsaldo</strong>
-                            </div>
-                            <div class="number dashtext-3">@Model.TotalBalance SEK</div>
-                        </div>
-                    </div>
-                </div>
+            }
         </div>
     </section>
 </div>

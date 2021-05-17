@@ -4,9 +4,10 @@ using System.Linq;
 using AutoMapper;
 using Azure.Search.Documents;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SearchApp;
 using SharedLibrary.Models;
+using Uppgift2BankApp.Services.AccountService;
+using Uppgift2BankApp.Services.CustomerService;
 using Uppgift2BankApp.Services.SearchService;
 using Uppgift2BankApp.ViewModels;
 
@@ -14,13 +15,15 @@ namespace Uppgift2BankApp.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly BankAppDataContext _dbContext;
+        private readonly ICustomerService _customerService;
+        private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
         private readonly IAzureSearch _searcher;
 
-        public CustomerController(BankAppDataContext dbContext, IMapper mapper, IAzureSearch searcher)
+        public CustomerController(ICustomerService customerService, IAccountService accountService, IMapper mapper, IAzureSearch searcher)
         {
-            _dbContext = dbContext;
+            _customerService = customerService;
+            _accountService = accountService;
             _mapper = mapper;
             _searcher = searcher;
         }
@@ -48,7 +51,7 @@ namespace Uppgift2BankApp.Controllers
             var ids = searchResult.Value.GetResults().Select(result => result.Document.Id);
 
             var query =
-                _dbContext.Customers.Where(c => ids.Contains(c.CustomerId.ToString()));
+                _customerService.GetAll().Where(c => ids.Contains(c.CustomerId.ToString()));
 
             var totalRowCount = searchResult.Value.TotalCount;
             var pageCount = (double) totalRowCount / pageSize;
@@ -72,7 +75,7 @@ namespace Uppgift2BankApp.Controllers
 
         public IActionResult Info(int id)
         {
-            var model = _dbContext.Customers.Include(c=>c.Dispositions).FirstOrDefault(c => c.CustomerId == id);
+            var model = _customerService.GetCustomerById(id);
             if (model == null)
             {
                 return RedirectToAction("Index", "Home");
@@ -84,7 +87,7 @@ namespace Uppgift2BankApp.Controllers
             var accounts = new List<Account>();
             foreach (var disposition in model.Dispositions)
             {
-                var account = _dbContext.Accounts.First(a => a.AccountId == disposition.AccountId);
+                var account = _accountService.GetAccountById(disposition.AccountId);
                 accounts.Add(account);
                 viewModel.TotalBalance += account.Balance;
             }

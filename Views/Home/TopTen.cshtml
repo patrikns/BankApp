@@ -1,0 +1,35 @@
+﻿@model Uppgift2BankApp.ViewModels.HomeTopTenViewModel
+
+@{
+    ViewData["Title"] = "Landets tio största kunder";
+}
+
+<div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">@ViewData["Title"]</h2>
+        </div>
+    </div>
+    
+    <section>
+        <div class="container-fluid">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Namn</th>
+                    <th>Saldo</th>
+                </tr>
+                </thead>
+                @foreach (var item in @Model.Items)
+                {
+            <tr>
+                <td>@item.CustomerId</td>
+                <td>@item.Name</td>
+                <td>@item.Balance</td>
+            </tr>
+                }
+            </table>
+        </div>
+    </section>
+</div>

@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Azure.Search.Documents;
-using Microsoft.EntityFrameworkCore.Query;
 using SharedLibrary.Models;
 using Uppgift2BankApp.ViewModels;
 

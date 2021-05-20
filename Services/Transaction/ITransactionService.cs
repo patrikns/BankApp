@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Models;
+﻿using SharedLibrary.Models;
 using Uppgift2BankApp.ViewModels;
 
 namespace Uppgift2BankApp.Services.Transaction

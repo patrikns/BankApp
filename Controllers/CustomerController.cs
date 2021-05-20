@@ -81,7 +81,7 @@ namespace Uppgift2BankApp.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var viewModel = _mapper.Map<CustomerInfoViewModel>(model);
+            var viewModel = _mapper.Map<CustomerInfoViewModel>(model);  
             viewModel.Name = model.Givenname + " " + model.Surname;
 
             var accounts = new List<Account>();

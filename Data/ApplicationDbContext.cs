@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Models;
 
 namespace Uppgift2BankApp.Data
 {
@@ -9,7 +10,5 @@ namespace Uppgift2BankApp.Data
             : base(options)
         {
         }
-
-        
     }
 }

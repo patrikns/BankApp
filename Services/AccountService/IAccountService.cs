@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using SharedLibrary.Models;
+﻿using SharedLibrary.Models;
 
 namespace Uppgift2BankApp.Services.AccountService
 {

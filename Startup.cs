@@ -70,6 +70,7 @@ namespace Uppgift2BankApp
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseResponseCaching();
 
             app.UseEndpoints(endpoints =>
             {

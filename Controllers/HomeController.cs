@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models;
 using Uppgift2BankApp.Services.CustomerService;
 using Uppgift2BankApp.Services.StatisticsService;
@@ -27,6 +25,7 @@ namespace Uppgift2BankApp.Controllers
             _customerService = customerService;
         }
 
+        [ResponseCache(Duration = 30, Location = ResponseCacheLocation.Any)]
         public IActionResult Index()
         {
             var viewModel = new HomeIndexViewModel 
@@ -52,6 +51,7 @@ namespace Uppgift2BankApp.Controllers
             return RedirectToAction("Index");
         }
 
+        [ResponseCache(Duration = 60, VaryByQueryKeys = new []{"countryCode"})]
         public IActionResult TopTen(string countryCode)
         {
             var viewModel = new HomeTopTenViewModel();

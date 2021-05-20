@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NightBatchApp", "..\NightBa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "..\UnitTests\UnitTests.csproj", "{F3D1882C-905F-492C-8D73-CF6E8E870997}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uppgift2BankApp.Tests", "..\Uppgift2BankApp.Tests\Uppgift2BankApp.Tests.csproj", "{4EBF5ED4-FD45-40BB-B13E-A3CE3E2C141F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F3D1882C-905F-492C-8D73-CF6E8E870997}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3D1882C-905F-492C-8D73-CF6E8E870997}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3D1882C-905F-492C-8D73-CF6E8E870997}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EBF5ED4-FD45-40BB-B13E-A3CE3E2C141F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EBF5ED4-FD45-40BB-B13E-A3CE3E2C141F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EBF5ED4-FD45-40BB-B13E-A3CE3E2C141F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EBF5ED4-FD45-40BB-B13E-A3CE3E2C141F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

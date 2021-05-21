@@ -16,14 +16,12 @@ namespace Uppgift2BankApp.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerService _customerService;
-        private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
         private readonly IAzureSearch _searcher;
 
-        public CustomerController(ICustomerService customerService, IAccountService accountService, IMapper mapper, IAzureSearch searcher)
+        public CustomerController(ICustomerService customerService, IMapper mapper, IAzureSearch searcher)
         {
             _customerService = customerService;
-            _accountService = accountService;
             _mapper = mapper;
             _searcher = searcher;
         }
@@ -83,21 +81,12 @@ namespace Uppgift2BankApp.Controllers
 
             var viewModel = _mapper.Map<CustomerInfoViewModel>(model);  
             viewModel.Name = model.Givenname + " " + model.Surname;
-
-            var accounts = new List<Account>();
-            foreach (var disposition in model.Dispositions)
+            viewModel.Accounts = model.Dispositions.Where(d=>d.Type=="OWNER").Select(d => new CustomerInfoViewModel.Item
             {
-                var account = _accountService.GetAccountById(disposition.AccountId);
-                accounts.Add(account);
-                viewModel.TotalBalance += account.Balance;
-            }
-
-            viewModel.Accounts = accounts.Select(a => new CustomerInfoViewModel.Item
-            {
-                AccountId = a.AccountId,
-                Balance = a.Balance
+                AccountId = d.Account.AccountId,
+                Balance = d.Account.Balance
             }).ToList();
-
+            viewModel.TotalBalance = model.Dispositions.Where(d => d.Type == "OWNER").Sum(d => d.Account.Balance);
 
             return View(viewModel);
         }

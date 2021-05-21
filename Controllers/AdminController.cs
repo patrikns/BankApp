@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Azure;
+using Azure.Search.Documents;
+using Azure.Search.Documents.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SearchApp;
 using SharedLibrary.Models;
 using Uppgift2BankApp.Data;
+using Uppgift2BankApp.Services.SearchService;
 using Uppgift2BankApp.ViewModels;
 
 namespace Uppgift2BankApp.Controllers
@@ -18,13 +23,15 @@ namespace Uppgift2BankApp.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _userDbContext;
+        private readonly IAzureSearch _search;
 
-        public AdminController(BankAppDataContext dbContext, IMapper mapper, UserManager<IdentityUser> userManager, ApplicationDbContext userDbContext)
+        public AdminController(BankAppDataContext dbContext, IMapper mapper, UserManager<IdentityUser> userManager, ApplicationDbContext userDbContext, IAzureSearch search)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _userManager = userManager;
             _userDbContext = userDbContext;
+            _search = search;
         }
 
         public IActionResult Index()
@@ -173,6 +180,7 @@ namespace Uppgift2BankApp.Controllers
                 };
                 _dbContext.Dispositions.Add(disposition);
                 _dbContext.SaveChanges();
+                UpdateSearchIndex(customer);
                 return RedirectToAction("Index");
             }
             return View(viewModel);
@@ -193,10 +201,32 @@ namespace Uppgift2BankApp.Controllers
             {
                 var customer = _mapper.Map<Customer>(viewModel);
                 _dbContext.Customers.Update(customer);
+
+                UpdateSearchIndex(customer);
+
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(viewModel);
+        }
+
+        private void UpdateSearchIndex(Customer customer)
+        {
+            var searchClient = _search.GetSearchClient();
+
+            var batch = new IndexDocumentsBatch<CustomerInAzure>();
+            var customerInAzure = new CustomerInAzure
+            {
+                Id = customer.CustomerId.ToString(),
+                NationalId = customer.NationalId,
+                Name = customer.Givenname + " " + customer.Surname,
+                Streetaddress = customer.Streetaddress,
+                City = customer.City
+            };
+            batch.Actions.Add(new IndexDocumentsAction<CustomerInAzure>(IndexActionType.MergeOrUpload,
+                customerInAzure));
+
+            IndexDocumentsResult result = searchClient.IndexDocuments(batch);
         }
     }
 }

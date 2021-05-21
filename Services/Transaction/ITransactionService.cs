@@ -9,5 +9,7 @@ namespace Uppgift2BankApp.Services.Transaction
         void AddCredit(TransactionCreditViewModel viewModel);
         void Withdrawal(TransactionDebitViewModel viewModel);
         void Transfer(TransactionTransferViewModel viewModel);
+        bool ExceedsBalance(int viewModelAccountId, decimal viewModelAmount);
+        bool AmountIsNegative(decimal viewModelAmount);
     }
 }

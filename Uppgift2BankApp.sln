@@ -11,9 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary", "..\SharedL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NightBatchApp", "..\NightBatchApp\NightBatchApp.csproj", "{023DA11D-AF14-4F39-9713-B7AB9D95A6DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "..\UnitTests\UnitTests.csproj", "{F3D1882C-905F-492C-8D73-CF6E8E870997}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uppgift2BankApp.Tests", "..\Uppgift2BankApp.Tests\Uppgift2BankApp.Tests.csproj", "{4EBF5ED4-FD45-40BB-B13E-A3CE3E2C141F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Uppgift2BankApp.Tests", "..\Uppgift2BankApp.Tests\Uppgift2BankApp.Tests.csproj", "{4EBF5ED4-FD45-40BB-B13E-A3CE3E2C141F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{023DA11D-AF14-4F39-9713-B7AB9D95A6DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{023DA11D-AF14-4F39-9713-B7AB9D95A6DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{023DA11D-AF14-4F39-9713-B7AB9D95A6DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F3D1882C-905F-492C-8D73-CF6E8E870997}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3D1882C-905F-492C-8D73-CF6E8E870997}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3D1882C-905F-492C-8D73-CF6E8E870997}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3D1882C-905F-492C-8D73-CF6E8E870997}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4EBF5ED4-FD45-40BB-B13E-A3CE3E2C141F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4EBF5ED4-FD45-40BB-B13E-A3CE3E2C141F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EBF5ED4-FD45-40BB-B13E-A3CE3E2C141F}.Release|Any CPU.ActiveCfg = Release|Any CPU

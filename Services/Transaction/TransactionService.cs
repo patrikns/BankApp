@@ -6,16 +6,16 @@ namespace Uppgift2BankApp.Services.Transaction
 {
     public class TransactionService : ITransactionService
     {
-        private readonly ITransactionRepos _dbContext;
+        private readonly ITransactionRepos _transactionRepos;
 
-        public TransactionService(ITransactionRepos dbContext)
+        public TransactionService(ITransactionRepos transactionRepos)
         {
-            _dbContext = dbContext;
+            _transactionRepos = transactionRepos;
         }
 
         public Account GetAccountById(int id)
         {
-            return _dbContext.GetAccounts().First(a => a.AccountId == id);
+            return _transactionRepos.GetAccounts().First(a => a.AccountId == id);
         }
 
         public void AddCredit(TransactionCreditViewModel viewModel)
@@ -28,11 +28,11 @@ namespace Uppgift2BankApp.Services.Transaction
                 Type = "Credit",
                 Operation = viewModel.SelectedOperation == 0 ? "Credit" : "Credit in cash"
             };
-            _dbContext.GetTransactions().Add(transaction);
+            _transactionRepos.GetTransactions().Add(transaction);
 
             var account = GetAccountById(viewModel.AccountId);
             account.Balance += transaction.Amount;
-            _dbContext.Save();
+            _transactionRepos.Save();
         }
 
         public void Withdrawal(TransactionDebitViewModel viewModel)
@@ -45,11 +45,11 @@ namespace Uppgift2BankApp.Services.Transaction
                 Type = "Debit",
                 Operation = viewModel.SelectedOperation == 0 ? "Credit card withdrawal" : "Withdrawal in cash"
             };
-            _dbContext.GetTransactions().Add(transaction);
+            _transactionRepos.GetTransactions().Add(transaction);
 
             var account = GetAccountById(viewModel.AccountId);
             account.Balance += transaction.Amount;
-            _dbContext.Save();
+            _transactionRepos.Save();
         }
 
         public void Transfer(TransactionTransferViewModel viewModel)
@@ -64,11 +64,21 @@ namespace Uppgift2BankApp.Services.Transaction
                 Bank = viewModel.Bank,
                 Account = viewModel.Account
             };
-            _dbContext.GetTransactions().Add(transaction);
+            _transactionRepos.GetTransactions().Add(transaction);
 
             var account = GetAccountById(viewModel.AccountId);
             account.Balance += transaction.Amount;
-            _dbContext.Save();
+            _transactionRepos.Save();
+        }
+
+        public bool ExceedsBalance(int viewModelAccountId, decimal viewModelAmount)
+        {
+            return viewModelAmount > GetAccountById(viewModelAccountId).Balance;
+        }
+
+        public bool AmountIsNegative(decimal viewModelAmount)
+        {
+            return viewModelAmount < 0;
         }
     }
 }

@@ -3,7 +3,7 @@ using SharedLibrary.Models;
 
 namespace Uppgift2BankApp.Services.Transaction
 {
-    class TransactionRepos : ITransactionRepos
+    public class TransactionRepos : ITransactionRepos
     {
         private readonly BankAppDataContext _dbContext;
 

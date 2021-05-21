@@ -5,7 +5,7 @@ using SharedLibrary.Models;
 
 namespace Uppgift2BankApp.Services.CustomerService
 {
-    class CustomerService : ICustomerService
+    public class CustomerService : ICustomerService
     {
         private readonly BankAppDataContext _dbContext;
 
@@ -21,7 +21,7 @@ namespace Uppgift2BankApp.Services.CustomerService
 
         public Customer GetCustomerById(int id)
         {
-            return _dbContext.Customers.Include(c=>c.Dispositions).First(c => c.CustomerId == id);
+            return _dbContext.Customers.Include(c=>c.Dispositions).ThenInclude(d=>d.Account).ThenInclude(a=>a.Transactions).FirstOrDefault(c => c.CustomerId == id);
         }
 
         public List<Account> GetAccountList(int customerId)

@@ -3,7 +3,7 @@ using SharedLibrary.Models;
 
 namespace Uppgift2BankApp.Services.AccountService
 {
-    class AccountService : IAccountService
+    public class AccountService : IAccountService
     {
         private readonly BankAppDataContext _dbContext;
 

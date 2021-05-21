@@ -29,6 +29,11 @@ namespace Uppgift2BankApp.Controllers
         [HttpPost]
         public IActionResult Credit(TransactionCreditViewModel viewModel)
         {
+            if (_transactionService.AmountIsNegative(viewModel.Amount))
+            {
+                ModelState.AddModelError("Amount", "Summan måste vara minst 0 SEK");
+            }
+
             if (ModelState.IsValid)
             {
                 _transactionService.AddCredit(viewModel);
@@ -62,10 +67,14 @@ namespace Uppgift2BankApp.Controllers
         [HttpPost]
         public IActionResult Debit(TransactionDebitViewModel viewModel)
         {
-            var account = _transactionService.GetAccountById(viewModel.AccountId);
-            if (viewModel.Amount > account.Balance)
+            if (_transactionService.ExceedsBalance(viewModel.AccountId, viewModel.Amount))
             {
                 ModelState.AddModelError("Amount", "Summan får inte överskrida kontots saldo");
+            }
+
+            if (_transactionService.AmountIsNegative(viewModel.Amount))
+            {
+                ModelState.AddModelError("Amount", "Summan måste vara minst 0 SEK");
             }
 
             if (ModelState.IsValid)
@@ -101,10 +110,14 @@ namespace Uppgift2BankApp.Controllers
         [HttpPost]
         public IActionResult Transfer(TransactionTransferViewModel viewModel)
         {
-            var account = _transactionService.GetAccountById(viewModel.AccountId);
-            if (viewModel.Amount > account.Balance)
+            if (_transactionService.ExceedsBalance(viewModel.AccountId, viewModel.Amount))
             {
                 ModelState.AddModelError("Amount", "Summan får inte överskrida kontots saldo");
+            }
+
+            if (_transactionService.AmountIsNegative(viewModel.Amount))
+            {
+                ModelState.AddModelError("Amount", "Summan måste vara minst 0 SEK");
             }
 
             if (ModelState.IsValid)

@@ -6,7 +6,7 @@ using Uppgift2BankApp.ViewModels;
 
 namespace Uppgift2BankApp.Services.StatisticsService
 {
-    class StatisticsService : IStatisticsService
+    public class StatisticsService : IStatisticsService
     {
         private readonly BankAppDataContext _dbContext;
 

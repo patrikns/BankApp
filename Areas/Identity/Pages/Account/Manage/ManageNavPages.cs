@@ -18,6 +18,7 @@ namespace Uppgift2BankApp.Areas.Identity.Pages.Account.Manage
         public static string ExternalLogins => "ExternalLogins";
 
         public static string PersonalData => "PersonalData";
+        
         public static string ApiKeys => "ApiKeys";
 
 

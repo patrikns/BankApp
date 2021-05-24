@@ -6,9 +6,17 @@
 }
 
 <h4>@ViewData["Title"]</h4>
-
+<partial name="_StatusMessage" for="StatusMessage"/>
 <div class="row">
     <div class="col-md-6">
+        <form id="change-password-form" method="post">
+            <div class="form-group">
+                <label asp-for="CustomerId">Välj kund</label>
+                <input asp-for="CustomerId" class="form-control" />
+                <span asp-validation-for="CustomerId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Skapa nyckel</button>
+        </form>
     </div>
 </div>
 

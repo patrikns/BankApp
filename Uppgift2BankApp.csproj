@@ -24,7 +24,6 @@
     <Content Remove="wwwroot\vendor\bootstrap\css\bootstrap-reboot.css" />
     <Content Remove="wwwroot\vendor\bootstrap\css\bootstrap-reboot.min.css" />
     <Content Remove="wwwroot\vendor\bootstrap\css\bootstrap.css" />
-    <Content Remove="wwwroot\vendor\bootstrap\css\bootstrap.min.css" />
     <Content Remove="wwwroot\vendor\bootstrap\js\bootstrap.bundle.js" />
     <Content Remove="wwwroot\vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Remove="wwwroot\vendor\bootstrap\js\bootstrap.js" />
@@ -36,7 +35,6 @@
     <Content Remove="wwwroot\vendor\chart.js\Chart.min.css" />
     <Content Remove="wwwroot\vendor\chart.js\Chart.min.js" />
     <Content Remove="wwwroot\vendor\font-awesome\css\font-awesome.css" />
-    <Content Remove="wwwroot\vendor\font-awesome\css\font-awesome.min.css" />
     <Content Remove="wwwroot\vendor\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Remove="wwwroot\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Remove="wwwroot\vendor\font-awesome\fonts\fontawesome-webfont.ttf" />
@@ -224,7 +222,6 @@
     <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.css" />
     <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.min.css" />
     <None Include="wwwroot\vendor\bootstrap\css\bootstrap.css" />
-    <None Include="wwwroot\vendor\bootstrap\css\bootstrap.min.css" />
     <None Include="wwwroot\vendor\bootstrap\js\bootstrap.bundle.js" />
     <None Include="wwwroot\vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <None Include="wwwroot\vendor\bootstrap\js\bootstrap.js" />
@@ -236,7 +233,6 @@
     <None Include="wwwroot\vendor\chart.js\Chart.min.css" />
     <None Include="wwwroot\vendor\chart.js\Chart.min.js" />
     <None Include="wwwroot\vendor\font-awesome\css\font-awesome.css" />
-    <None Include="wwwroot\vendor\font-awesome\css\font-awesome.min.css" />
     <None Include="wwwroot\vendor\font-awesome\fonts\fontawesome-webfont.eot" />
     <None Include="wwwroot\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\vendor\font-awesome\fonts\fontawesome-webfont.ttf" />

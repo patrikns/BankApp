@@ -21,7 +21,7 @@ namespace Uppgift2BankApp.Controllers
         public IActionResult Index(int id)
         {
             var viewModel = new AccountIndexViewModel();
-            var model = _dbContext.Dispositions.Include(d=>d.Account).ThenInclude(a=>a.Transactions).First(d => d.CustomerId == id).Account;
+            var model = _dbContext.Dispositions.Include(d=>d.Account).ThenInclude(a=>a.Transactions).First(d=> d.CustomerId == id).Account;
             viewModel.AccountId = model.AccountId;
             viewModel.Balance = model.Balance;
             viewModel.Items = model.Transactions.OrderByDescending(t=>t.Date).Select(t => new TransactionRowViewModel()

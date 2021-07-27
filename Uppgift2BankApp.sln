@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NightBatchApp", "..\NightBa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Uppgift2BankApp.Tests", "..\Uppgift2BankApp.Tests\Uppgift2BankApp.Tests.csproj", "{4EBF5ED4-FD45-40BB-B13E-A3CE3E2C141F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankAPI", "..\BankAPI\BankAPI.csproj", "{A38EDDC0-484E-40BD-9826-1D9F590FA639}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankAPI", "..\BankAPI\BankAPI.csproj", "{A38EDDC0-484E-40BD-9826-1D9F590FA639}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

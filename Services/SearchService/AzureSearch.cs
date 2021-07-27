@@ -12,7 +12,7 @@ namespace Uppgift2BankApp.Services.SearchService
 
         public AzureSearch()
         {
-            _key = "FCAAEEB5AC82008B944620ADA2749915";
+            _key = "151E0D94D2A09EFA66DD8185CEED806F";
             _searchUrl = "https://patrikspersonsearch.search.windows.net";
             _indexName = "kunder";
         }
